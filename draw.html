@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>熊猫看书抽奖活动</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
+    <script type="text/javascript" src="js/mobilejquery.js"></script>
+    <script type="text/javascript" src="js/jquery.slotmachine.js"></script>
+    <style>
+        *{ margin: 0px; padding: 0px;}
+        body,html{font-size:14px;font-family: "微软雅黑" ; -webkit-text-size-adjust: none; background:#f34545;height: 100%;}
+        img{margin: 0px; padding: 0px; border: 0px;}
+        input{outline: none; resize:none; -webkit-tap-highlight-color:rgba(0,0,0,0); -webkit-appearance:none;border: 0px;padding:0px; -webkit-touch-callout:none;-webkit-transform:translateZ(0)}
+        input[type="checkbox"] {-webkit-appearance: checkbox;}
+        input[type="radio"] {-webkit-appearance: radio;}
+        textarea{ margin: 0px; padding: 0px; border: 0px;  outline:none;resize:none;}
+        textarea:focus {outline:none; -webkit-user-modify:read-write-plaintext-only;}
+        .img_switch{ display: -webkit-box; position: relative}
+        .img_switch>div{-webkit-box-flex:1; width: 0;}
+        .img_switch>div img{ width: 100%;display: block;}
+        .style_bg{ height: 217px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/b7/b7ad0f0630ba6157ac63bdb56b283a34.jpg") no-repeat; background-size: 100%;}
+        .lhjbg{ width: 320px; height: 223px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/1c/1cb7273704c572e3b0f8039d7a6947bd.png") no-repeat; background-size: 320px 223px; margin: 0 auto; overflow: hidden}
+        .mach{clear:both; height: 106px; width: 240px; margin-top: 20px; margin-left: 43px;}
+        .slotMachine{width:75px;height:106px;overflow: hidden; display: inline-block;}
+        .slotMachine .slot{width:73px;height:106px; }
+        .slot1{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .slot2{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px; }
+        .slot3{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .slot4{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .slot5{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .slot6{background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .F_buttion{margin-top: 45px; margin-left: 32px;}
+        .F_buttion .font{font-size: 14px;color: #ffffe0;  float: left; padding-top: 8px; }
+        .slotMachineButton{overflow: hidden;display: inline-block;text-align: center;}
+        .slotMachineButton { width: 96px; height: 35px; background:url("http://img.m.shucheng.baidu.com/operateimg/novel/94/9428c114d73999e5502a8fb44e141e4b.png") no-repeat; background-size: 96px 35px; margin-left: 35px}
+        .Jiangping{ background: #5c2b99; margin: 0px 10px; border-bottom-left-radius: 3px;  border-bottom-right-radius: 3px; overflow: hidden}
+        .Jiangping .J_pic{ width: 223px; height: 21px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/59/590b8b8a9442a3be857e1c1462a92343.png") no-repeat; background-size: 223px 21px; margin: 0 auto; margin-top: 12px;}
+        .Jiangping .font_r{ padding: 20px 30px 25px 30px; line-height: 26px; font-size: 12px; color: #fff;}
+        .Sont_all{ display: -webkit-box;   margin: 25px 20px 0px 20px; border: none;}
+        .Sont_all .name{ display: block; font-size: 12px; color: #fff; line-height: 20px;}
+        .Sont_all .line{ display: block; border-top: 1px #fbbcbd solid;-webkit-box-flex:1;  margin:0px 5px; margin-top: 9px;}
+        .Sont_all img{ width: 35px; height: 5px;}
+        .Font_all{padding: 17px 20px 10px 20px; line-height: 24px; font-size: 12px; color: #fff;}
+        .bg{ position: fixed; z-index: 3; top: 0px; background: #000; width: 100%; height: 100%; opacity: 0.6;}
+        .Windows{ width: 100%; height: 182px; position: fixed; left: 0; top: 50%; margin-top: -91px; z-index: 5}
+        .Windows .box{ margin: 0px 20px; background: #ffffe0; height: 182px; border-radius: 3px; -webkit-border-radius: 3px; position: relative}
+        .Windows .box .Li_bg{ width: 80px; height: 88px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/b1/b10443e895d419be9e7647094f6c25d9.png") no-repeat; background-size: 80px 88px; position: absolute; left: -10px; top: -20px; z-index: 6;}
+        .Windows .box .Nr_in{ position: absolute; z-index: 7; left: 0; top:0; width: 100%;}
+        .Windows .box .Nr_in .B{ text-align: center; padding: 20px;}
+        .Windows .box .Nr_in .B h1{ font-size: 18px; color: #8b684e; font-weight: bold}
+        .Windows .box .Nr_in .B h2{ font-size: 18px; color: #ff8d1e; font-weight: bold; padding-top: 5px;}
+        .Windows .box .Nr_in .B .text{ font-size: 14px; color: #ddaf66; margin-top: 8px;}
+        .fiexd_bottom{ width: 100%; height: auto!important;  position: fixed; left: 0; bottom: 20px;  z-index: 9; margin: 0; top: inherit;}
+        .Q_buttion{ height: 35px; background: #ff8d1e; margin: 10px 50px; border-radius: 3px; -webkit-border-radius: 3px;  line-height: 35px; font-size: 16px; font-weight: bold; color: #fff;font-family: "微软雅黑" ; }
+        .input_box{ display: -webkit-box; margin: 15px 35px 0px 5px;}
+        .input_box label{ display:inline-block; width: 60px; text-align: center; font-size: 14px; color: #8b684e; line-height: 32px;}
+        .input_box dl{-webkit-box-flex:1; margin-left: 10px;}
+        .input_box dl input{ width: 100%; height: 32px; border: 1px #ffdf9f solid; border-radius: 3px; padding: 0px 10px; font-size: 13px; color: #ddaf66; background: #fffff4;}
+        .input_box dl textarea{width: 100%; height:88px;padding:  10px;  border: 1px #ffdf9f solid; border-radius: 3px; -webkit-border-radius: 3px; font-size: 13px; color: #ddaf66; background: #fffff4;}
+        textarea::-webkit-input-placeholder {color: #ddaf66;}
+        .none{ display: none}
+        .ch{ height: 20px;}
+        .P-20{ padding: 20px 0px}
+        .P-30{ padding: 30px 0px}
+        .Margin0{ margin: 20px 12px 0px 12px;}
+        .color_1{ color: #ff6600;}
+        .color_2{ color: #ffeb0a;}
+        .color_3{ color: #fffe20; text-decoration: underline;}
+    </style>
+</head>
+<body>
+    <section class="img_switch">
+        <div>
+            <img src="http://img.m.shucheng.baidu.com/operateimg/novel/a1/a1f0b13898ac13d689a0a74507466ce1.jpg" />
+        </div>
+    </section>
+    <section class="style_bg">
+        <div class="lhjbg">
+            <div class="mach">
+                <div id="machine1" class="slotMachine">
+                    <div class="slot slot1"></div>
+                    <div class="slot slot2"></div>
+                    <div class="slot slot3"></div>
+                    <div class="slot slot4"></div>
+                    <div class="slot slot5"></div>
+                    <div class="slot slot6"></div>
+                </div>
+                <div id="machine2" class="slotMachine">
+                    <div class="slot slot1"></div>
+                    <div class="slot slot2"></div>
+                    <div class="slot slot3"></div>
+                    <div class="slot slot4"></div>
+                    <div class="slot slot5"></div>
+                    <div class="slot slot6"></div>
+                </div>
+                <div id="machine3" class="slotMachine">
+                    <div class="slot slot1"></div>
+                    <div class="slot slot2"></div>
+                    <div class="slot slot3"></div>
+                    <div class="slot slot4"></div>
+                    <div class="slot slot5"></div>
+                    <div class="slot slot6"></div>
+                </div>
+            </div>
+            <div class="F_buttion">
+                <div class="font">您还有 <span class="color_1">9</span> 次抽奖机会</div>
+                <div id="slotMachineButton1" class="slotMachineButton"></div>
+            </div>
+        </div>
+    </section>
+    <section class="Jiangping">
+        <div  class="J_pic"></div>
+        <div class="font_r">
+            <span class="color_2">一等奖</span>（5名）：价值<span class="color_2">5999元</span>的<span class="color_2">iPhone6S</span><br />
+            <span class="color_2">二等奖</span></span>（10名）：价值<span class="color_2">999元</span>的<span class="color_2">红米note</span><br />
+            <span class="color_2">三等奖</span>（100名）：价值<span class="color_2">100元</span>的<span class="color_2">手机充值卡</span><br />
+            <span class="color_2">四等奖</span>（10000名）：价值<span class="color_2">10元</span>的<span class="color_2">熊猫看书礼券</span>
+        </div>
+    </section>
+    <section class="Sont_all" >
+        <legend class="name">获奖记录</legend>
+        <div class="line"></div>
+        <img src="http://img.m.shucheng.baidu.com/operateimg/novel/f4/f43db76e9d79f1590c971ed628161a30.png" />
+    </section>
+    <section class="Font_all">
+        <span class="color_3" id="click_address">填写收货地址</span><br />
+        恭喜您获得了价值10元的熊猫看书礼券。<br />
+        恭喜您获得了价值59999元的iPhone6S
+    </section>
+    <section class="Sont_all" >
+        <legend class="name">规则说明</legend>
+        <div class="line"></div>
+        <img src="http://img.m.shucheng.baidu.com/operateimg/novel/f4/f43db76e9d79f1590c971ed628161a30.png" />
+    </section>
+    <section class="Font_all">
+        1.每位用户有3次抽奖机会，每天额外赠送1次抽奖机会，赠送的抽奖机会将不会累计。<br />
+        2. 中奖实物奖品将于活动结束后60个工作日内寄出。请获得奖品的用户在本页面内填写收货地址，若因地址不详无法收取概不进行二次邮寄。<br />
+        3. 在法律允许范围内熊猫看书拥有最终解释权。对本活动有任何咨询或疑问，请联系在线客服。
+    </section>
+    <div class="ch"></div>
+
+    <section class="bg"></section>
+    <!-- 弹层—1 -->
+    <section class="Windows ">
+        <section class="box">
+            <div class="Li_bg"></div>
+            <div class="Nr_in">
+                <div class="B">
+                    <h1>恭喜您获得了 </h1>
+                    <h2>10元熊猫看书礼券</h2>
+                    <div class="text">
+                        礼券已放入您的账户<br />
+                        快去书城挑书吧!
+                    </div>
+                    <div class="Q_buttion">好的</div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- 弹层—2 -->
+    <section class="Windows none">
+        <section class="box">
+            <div class="Li_bg"></div>
+            <div class="Nr_in">
+                <div class="B">
+                    <h1>恭喜您获得了 </h1>
+                    <h2>价值5999元的iPhone6S</h2>
+                    <div class="text">
+                        请填写收货信息！<br />
+                    </div>
+                    <div class="Q_buttion">好的</div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- 弹层—3 -->
+    <section class="Windows none">
+        <section class="box">
+            <div class="Li_bg"></div>
+            <div class="Nr_in">
+                <div class="B">
+                    <h1 class="P-30">您今天的抽奖次数已用完</h1>
+                    <div class="Q_buttion">知道了</div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- 弹层—4 -->
+    <section class="Windows none">
+        <section class="box">
+            <div class="Li_bg"></div>
+            <div class="Nr_in">
+                <div class="B">
+                    <h1 class="P-20">哎哟手滑了~<br /> 再抽一次试试手气吧</h1>
+                    <div class="Q_buttion"> 好的</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- 弹层—5 -->
+    <section class="Windows fiexd_bottom none" id="Address">
+        <section class="box" style="height: 390px;">
+            <div class="Li_bg"></div>
+            <div class="Nr_in">
+                <div class="B">
+                    <h1>我的收货信息</h1>
+                    <div class="input_box">
+                        <label>姓名</label>
+                        <dl><input type="text" value="收货人姓名" onfocus="this.style.color='#333';this.value='';" /></dl>
+                    </div>
+                    <div class="input_box">
+                        <label>手机号</label>
+                        <dl><input type="text" value="收货人手机号" onfocus="this.style.color='#333';this.value='';" /></dl>
+                    </div>
+                    <div class="input_box">
+                        <label>地址</label>
+                        <dl><textarea placeholder="收货地址"  onfocus="this.style.color='#333';this.placeholder='';" ></textarea></dl>
+                    </div>
+                    <div class="Q_buttion Margin0" > 我要领奖</div>
+
+                    <div class="text">
+                        请在2016-12-12前填写好收货信息，<br />
+                        否则将视为放弃该奖励。
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <script>
+        $(".Q_buttion").click(function(){
+            $(".Windows,.bg").hide();
+        })
+        $("#click_address").click(function(){
+            $("#Address").show();
+        })
+        $(document).ready(function() {
+            $("#aaa").attr("target","_blank");
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            var machine1 = $("#machine1").slotMachine({
+                active	: 0,
+                delay	: 500
+            });
+            var machine2 = $("#machine2").slotMachine({
+                active	: 1,
+                delay	: 500
+            });
+            var machine3 = $("#machine3").slotMachine({
+                active	: 2,
+                delay	: 500
+            });
+            function onComplete($el, active){
+                switch($el[0].id){
+                    case 'machine1':
+                        $("#machine1Result").text("Index: "+active.index);
+                        break;
+                    case 'machine2':
+                        $("#machine2Result").text("Index: "+active.index);
+                        break;
+                    case 'machine3':
+                        $("#machine3Result").text("Index: "+active.index);
+                        break;
+                }
+            }
+            $("#slotMachineButton1").click(function(){
+                machine1.shuffle(3, onComplete);
+                setTimeout(function(){
+                    machine2.shuffle(3, onComplete);
+                }, 500);
+                setTimeout(function(){
+                    machine3.shuffle(3, onComplete);
+                }, 1000);
+            })
+        });
+    </script>
+</body>
+</html>
