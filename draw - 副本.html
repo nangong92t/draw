@@ -7,9 +7,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
-	<script type="text/javascript" src="./zepto.min.js"></script>
-	<script type="text/javascript" src="./header.js"></script>
-	<script type="text/javascript" src="./draw.js"></script>
     <style>
         *{ margin: 0px; padding: 0px;}
         body,html{font-size:14px;font-family: "微软雅黑" ; -webkit-text-size-adjust: none; background:#f34545;height: 100%;}
@@ -25,8 +22,8 @@
         .style_bg{ height: 217px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/b7/b7ad0f0630ba6157ac63bdb56b283a34.jpg") no-repeat; background-size: 100%;}
         .lhjbg{ width: 320px; height: 223px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/1c/1cb7273704c572e3b0f8039d7a6947bd.png") no-repeat; background-size: 320px 223px; margin: 0 auto; overflow: hidden}
         .mach{clear:both; height: 106px; width: 240px; margin-top: 20px; margin-left: 43px;}
-        .slotMachine{width:75px;height:106px;overflow: hidden; display: inline-block; position:relative;}
-        .slotMachine .slot{width:73px;height:106px; background: url("http://img.m.shucheng.baidu.com/operateimg/novel/56/56d6c02e6cfd033a722d633bd7b60ce7.png") center center no-repeat; background-size: 73px 106px;}
+        .slotMachine{width:75px;height:106px;overflow: hidden; display: inline-block;}
+        .slotMachine .slot{width:73px;height:106px; }
         .F_buttion{margin-top: 45px; margin-left: 32px;}
         .F_buttion .font{font-size: 14px;color: #ffffe0;  float: left; padding-top: 8px; }
         .slotMachineButton{overflow: hidden;display: inline-block;text-align: center;}
@@ -75,8 +72,8 @@
     <section class="style_bg">
         <div class="lhjbg">
             <div class="mach">
-                <div class="slotMachine draw">
-					<div class="d1 a1">
+                <div id="machine1" class="slotMachine">
+					<div class="d1">
 						<div style="background-image:url('./images/iphone6s.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/hongmi.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/chongdianbao.jpg')" class="slot"></div>
@@ -85,8 +82,8 @@
 					</div>
 					<div class="d2"></div>
                 </div>
-                <div class="slotMachine draw">
-					<div class="d1 a2">
+                <div id="machine2" class="slotMachine">
+					<div class="d1">
 						<div style="background-image:url('./images/iphone6s.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/hongmi.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/chongdianbao.jpg')" class="slot"></div>
@@ -95,8 +92,8 @@
 					</div>
 					<div class="d2"></div>
                 </div>
-                <div class="slotMachine draw">
-					<div class="d1 a3">
+                <div id="machine3" class="slotMachine">
+					<div class="d1">
 						<div style="background-image:url('./images/iphone6s.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/hongmi.jpg')" class="slot"></div>
 						<div style="background-image:url('./images/chongdianbao.jpg')" class="slot"></div>
@@ -112,8 +109,6 @@
             </div>
         </div>
     </section>
-	<div id="a"></div>
-	<div id="b"></div>
     <section class="Jiangping">
         <div  class="J_pic"></div>
         <div class="font_r">
@@ -233,13 +228,55 @@
             </div>
         </section>
     </section>
-	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$("#slotMachineButton1").click(function(){
-			$(".mach").draw()
-		});
-	});
-	</script>
+    <script>
+        $(".Q_buttion").click(function(){
+            $(".Windows,.bg").hide();
+        })
+        $("#click_address").click(function(){
+            $("#Address").show();
+        })
+        $(document).ready(function() {
+            $("#aaa").attr("target","_blank");
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            var machine1 = $("#machine1").slotMachine({
+                active	: 0,
+                delay	: 500
+            });
+            var machine2 = $("#machine2").slotMachine({
+                active	: 1,
+                delay	: 500
+            });
+            var machine3 = $("#machine3").slotMachine({
+                active	: 2,
+                delay	: 500
+            });
+            function onComplete($el, active){
+                switch($el[0].id){
+                    case 'machine1':
+                        $("#machine1Result").text("Index: "+active.index);
+                        break;
+                    case 'machine2':
+                        $("#machine2Result").text("Index: "+active.index);
+                        break;
+                    case 'machine3':
+                        $("#machine3Result").text("Index: "+active.index);
+                        break;
+                }
+            }
+            $("#slotMachineButton1").click(function(){
+                machine1.shuffle(3, onComplete);
+                setTimeout(function(){
+                    machine2.shuffle(3, onComplete);
+                }, 500);
+                setTimeout(function(){
+                    machine3.shuffle(3, onComplete);
+                }, 1000);
+            })
+        });
+    </script>
 </body>
 </html>
